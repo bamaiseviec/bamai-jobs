@@ -1,77 +1,338 @@
-function doGet() {
-  // Lấy sheet đầu tiên hoặc sheet chứa chữ "Job"
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName("Job Board") || ss.getSheets()[0];
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bà Mai Se Việc - Mai mối người giỏi × Việc ngon</title>
   
-  var data = sheet.getDataRange().getValues();
-  var jobs = [];
-
-  // Tự động quét từ hàng 3 trở đi
-  for (var i = 2; i < data.length; i++) {
-    var row = data[i];
-    
-    // Đọc các giá trị cột
-    var code = row[0] ? row[0].toString().trim() : "";          // Cột A: Mã
-    var title = row[4] ? row[4].toString().trim() : "";         // Cột E: Vị trí
-    var linkJD = row[6] ? row[6].toString().trim() : "#";       // Cột G: Link JD
-    var city = row[7] ? row[7].toString().trim() : "";          // Cột H: Thành phố
-    var district = row[8] ? row[8].toString().trim() : "";      // Cột I: Địa điểm
-    var salary = row[9] ? row[9].toString().trim() : "";        // Cột J: Mức lương
-    var status = row[10] ? row[10].toString().trim() : "";      // Cột K: Hiện trạng
-    
-    var category = row[11] ? row[11].toString().trim() : "";    // Cột L
-    var type = row[12] ? row[12].toString().trim() : "";        // Cột M
-    var hot = row[13] ? row[13].toString().trim() : "";         // Cột N
-    var workTime = row[14] ? row[14].toString().trim() : "";    // Cột O
-    var description = row[15] ? row[15].toString().trim() : ""; // Cột P
-    var requirements = row[16] ? row[16].toString() : "";      // Cột Q
-    var benefits = row[17] ? row[17].toString() : "";          // Cột R
-
-    // Lấy công việc nếu có Tên vị trí VÀ (Trạng thái là Đang tuyển HOẶC không bị Closed)
-    var isAvailable = status.toLowerCase().indexOf("đang tuyển") !== -1 || (status !== "" && status.toLowerCase().indexOf("closed") === -1);
-    
-    if (title !== "" && isAvailable) {
-      jobs.push({
-        id: code || ("job-" + i),
-        title: title,
-        category: category || "Chung",
-        location: (city || "") + (district ? " (" + district + ")" : ""),
-        type: type || "Full-time",
-        salary: salary || "Thỏa thuận",
-        linkJD: linkJD || "#",
-        hot: (hot.toLowerCase() === "true" || hot.toLowerCase() === "x"),
-        workTime: workTime,
-        description: description || "Bấm để xem file JD chi tiết.",
-        requirements: requirements ? requirements.split(";") : [],
-        benefits: benefits ? benefits.split(";") : []
-      });
+  <!-- Font Nunito & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              navy: '#0F1E4A',
+              pink: '#EC4899',
+              blue: '#0EA5E9',
+              yellow: '#F59E0B',
+              bgLight: '#FFFDF9',
+            }
+          }
+        }
+      }
     }
-  }
+  </script>
+  <style>
+    body {
+      background-color: #FFFDF9;
+      font-family: 'Nunito', sans-serif;
+    }
+    .rainbow-border {
+      background: linear-gradient(135deg, #a5f3fc 0%, #fbcfe8 50%, #fef08a 100%);
+    }
+    .rainbow-text {
+      background: linear-gradient(135deg, #0EA5E9 0%, #EC4899 50%, #D97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .logo-glow {
+      box-shadow: 0 8px 25px -5px rgba(236, 72, 153, 0.3);
+    }
+  </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
 
-  return ContentService.createTextOutput(JSON.stringify(jobs))
-    .setMimeType(ContentService.MimeType.JSON);
-}
+  <!-- LINK API GOOGLE APPS SCRIPT -->
+  <script>
+    const SCRIPT_API_URL = "https://script.google.com/macros/s/AKfycby0Qe-983gj9JZi_u2XKq-FtZZvCdYPWze-ORAZa4-IgqBcOv51pQ8VEi2eiqROTozV_Q/exec";
+  </script>
 
-function doPost(e) {
-  try {
-    var contents = JSON.parse(e.postData.contents);
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheetByName("CV tự nguyện") || ss.getSheets()[0];
+  <!-- HEADER / NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-full rainbow-border p-1 logo-glow transition duration-300 group-hover:scale-105">
+          <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center font-extrabold text-white text-xl">
+            <span class="text-brand-pink">B</span>M
+          </div>
+        </div>
+        <div>
+          <span class="block text-xl font-black text-brand-navy tracking-tight leading-none">bà mai se việc</span>
+          <span class="block text-xs font-bold text-brand-pink tracking-wide">mai mối người giỏi × việc ngon</span>
+        </div>
+      </a>
 
-    var timestamp = new Date();
-    sheet.appendRow([
-      timestamp,
-      contents.name || "",
-      contents.contact || "",
-      contents.jobTitle || contents.service || "",
-      contents.cvLink || contents.note || "",
-      "Nguồn từ Website Bà Mai"
-    ]);
+      <nav class="hidden md:flex items-center space-x-8 font-bold text-slate-700">
+        <a href="#jobs" class="hover:text-brand-pink transition">Danh sách Job</a>
+        <a href="#about" class="hover:text-brand-pink transition">Về Bà Mai</a>
+        <a href="#services" class="hover:text-brand-pink transition">Dịch vụ khác</a>
+      </nav>
 
-    return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
+      <a href="#jobs" class="bg-brand-navy hover:bg-slate-800 text-white font-extrabold px-5 py-2.5 rounded-full shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+        <i class="fa-solid fa-heart text-brand-pink"></i> Xem Job Ngon
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 bg-pink-50 border border-pink-200 text-brand-pink font-bold px-4 py-1.5 rounded-full text-sm mb-6 shadow-sm">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Mát tay kết nối - Uy tín chất lượng
+      </div>
+      
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-brand-navy mb-6 leading-tight">
+        Nơi Bà Mai <span class="rainbow-text">se duyên</span><br class="hidden sm:block"/> Cho Người Giỏi x Việc Ngon
+      </h1>
+      
+      <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 font-medium">
+        Kênh tuyển dụng & kết nối việc làm minh bạch, chọn lọc kỹ lưỡng. Tìm job xịn không tốn phí, kết nối trực tiếp với doanh nghiệp!
+      </p>
+
+      <!-- SEARCH & FILTER BAR -->
+      <div class="max-w-4xl mx-auto bg-white p-4 sm:p-5 rounded-3xl shadow-xl border border-pink-100 flex flex-col sm:flex-row gap-3">
+        <div class="flex-1 relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" id="searchInput" onkeyup="filterJobs()" placeholder="Nhập vị trí, mã job hoặc từ khóa..." class="w-full pl-11 pr-4 py-3 bg-slate-50 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-blue font-semibold">
+        </div>
+        <div class="sm:w-48">
+          <select id="locationSelect" onchange="filterJobs()" class="w-full px-4 py-3 bg-slate-50 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-blue font-semibold">
+            <option value="">Tất cả địa điểm</option>
+            <option value="TP.HCM">TP. Hồ Chí Minh</option>
+            <option value="Hà Nội">Hà Nội</option>
+            <option value="Remote">Remote</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOBS LIST SECTION -->
+  <section id="jobs" class="py-12 bg-white flex-grow border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-black text-brand-navy">Danh Sách Việc Ngon Đang Tuyển</h2>
+          <p class="text-slate-500 font-semibold mt-1">Dữ liệu cập nhật trực tiếp từ hệ thống Google Sheet của Bà Mai</p>
+        </div>
+        <span id="jobCount" class="bg-blue-50 text-brand-blue font-bold px-4 py-1.5 rounded-full text-sm">Đang kết nối...</span>
+      </div>
+
+      <!-- JOBS GRID -->
+      <div id="jobsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="col-span-full text-center py-12">
+          <i class="fa-solid fa-spinner fa-spin text-3xl text-brand-pink mb-3"></i>
+          <p class="text-slate-500 font-bold">Đang tải danh sách việc làm...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="py-16 bg-gradient-to-br from-pink-50/50 via-amber-50/30 to-sky-50/50 border-t border-pink-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-pink-100 flex flex-col md:flex-row gap-8 items-center">
+        <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full rainbow-border p-2 flex-shrink-0 shadow-lg">
+          <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center font-black text-4xl text-white">
+            <span class="text-brand-pink">B</span>M
+          </div>
+        </div>
+        <div>
+          <span class="text-brand-pink font-extrabold text-sm uppercase tracking-wider">Câu chuyện thương hiệu</span>
+          <h2 class="text-3xl font-black text-brand-navy mt-1 mb-4">Về "Bà Mai Se Việc"</h2>
+          <p class="text-slate-600 leading-relaxed font-medium mb-4">
+            Bà Mai Se Việc sinh ra với sứ mệnh trở thành chiếc cầu nối mát tay, đưa những ứng viên có tâm & có tầm chạm tới những vị trí công việc xứng đáng. Chúng tôi tin rằng tìm việc tốt cũng như tìm người thương - cần sự thấu hiểu, minh bạch và đúng thời điểm!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" class="py-16 bg-white border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-black text-brand-navy">Các Dịch Vụ Khác Từ Bà Mai</h2>
+        <p class="text-slate-500 font-semibold mt-2">Đồng hành cùng sự nghiệp & nhu cầu tuyển dụng của bạn</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 hover:border-brand-pink transition">
+          <div class="w-12 h-12 bg-pink-100 text-brand-pink rounded-2xl flex items-center justify-center text-xl font-bold mb-4">
+            <i class="fa-solid fa-file-pen"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brand-navy mb-2">Tư vấn & Tối ưu CV</h3>
+          <p class="text-slate-600 font-medium text-sm">Chỉnh sửa CV chuẩn chỉnh, nổi bật thế mạnh giúp bạn chinh phục nhà tuyển dụng khó tính nhất.</p>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 hover:border-brand-blue transition">
+          <div class="w-12 h-12 bg-sky-100 text-brand-blue rounded-2xl flex items-center justify-center text-xl font-bold mb-4">
+            <i class="fa-solid fa-comments"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brand-navy mb-2">Phỏng vấn thử (Mock Interview)</h3>
+          <p class="text-slate-600 font-medium text-sm">Luyện tập phỏng vấn 1-1 với chuyên gia, nhận phản hồi thực tế để tự tin nhận offer.</p>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 hover:border-brand-yellow transition">
+          <div class="w-12 h-12 bg-amber-100 text-brand-yellow rounded-2xl flex items-center justify-center text-xl font-bold mb-4">
+            <i class="fa-solid fa-users-viewfinder"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brand-navy mb-2">Headhunting Doanh Nghiệp</h3>
+          <p class="text-slate-600 font-medium text-sm">Săn nhân tài theo yêu cầu riêng, cung cấp nhân sự chất lượng cao đúng cam kết.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-navy text-white pt-12 pb-8 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div>
+        <span class="text-xl font-black text-white">bà mai se việc</span>
+        <p class="text-slate-400 text-sm mt-1">mai mối người giỏi × việc ngon</p>
+      </div>
+      <p class="text-slate-400 text-sm">© 2026 Bà Mai Se Việc. Tất cả quyền được bảo lưu.</p>
+    </div>
+  </footer>
+
+  <!-- MODAL CHI TIẾT JOB -->
+  <div id="jobModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl">
+      <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-xl font-bold">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="modalContent">
+        <!-- Dữ liệu Modal chi tiết -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT KẾT NỐI API APPS SCRIPT -->
+  <script>
+    let allJobs = [];
+
+    async function fetchJobs() {
+      try {
+        const response = await fetch(SCRIPT_API_URL);
+        allJobs = await response.json();
+        renderJobs(allJobs);
+      } catch (error) {
+        console.error("Lỗi tải danh sách job:", error);
+        document.getElementById('jobsContainer').innerHTML = `
+          <div class="col-span-full text-center py-12 text-rose-500 font-bold">
+            <i class="fa-solid fa-circle-exclamation text-3xl mb-2"></i>
+            <p>Không thể tải danh sách công việc. Vui lòng kiểm tra lại bản triển khai Apps Script!</p>
+          </div>
+        `;
+      }
+    }
+
+    function renderJobs(jobs) {
+      const container = document.getElementById('jobsContainer');
+      document.getElementById('jobCount').innerText = `${jobs.length} Vị trí`;
+
+      if (!jobs || jobs.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-12 text-slate-400 font-bold">
+            <p>Chưa có công việc nào trạng thái "Đang tuyển" trên Google Sheet.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = jobs.map(job => `
+        <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition transform hover:-translate-y-1 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="bg-sky-50 text-brand-blue font-bold text-xs px-3 py-1 rounded-full">${job.location}</span>
+              <span class="text-emerald-600 font-black text-sm">${job.salary}</span>
+            </div>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Mã Job: ${job.id}</span>
+            <h3 class="text-xl font-black text-brand-navy mb-2 line-clamp-2">${job.title}</h3>
+            <p class="text-slate-500 text-sm line-clamp-3 mb-4 font-medium">${job.description}</p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+            <button onclick="openModal('${job.id}')" class="flex-1 bg-pink-50 hover:bg-pink-100 text-brand-pink font-bold py-2.5 rounded-2xl text-sm transition text-center">
+              Xem Chi Tiết
+            </button>
+            <a href="${job.linkJD}" target="_blank" class="bg-brand-navy hover:bg-slate-800 text-white font-bold px-4 py-2.5 rounded-2xl text-sm transition flex items-center gap-1">
+              File JD <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterJobs() {
+      const keyword = document.getElementById('searchInput').value.toLowerCase();
+      const location = document.getElementById('locationSelect').value;
+
+      const filtered = allJobs.filter(job => {
+        const matchesKeyword = job.title.toLowerCase().includes(keyword) || job.id.toLowerCase().includes(keyword) || (job.description && job.description.toLowerCase().includes(keyword));
+        const matchesLocation = !location || job.location.includes(location);
+        return matchesKeyword && matchesLocation;
+      });
+
+      renderJobs(filtered);
+    }
+
+    function openModal(jobId) {
+      const job = allJobs.find(j => j.id === jobId);
+      if (!job) return;
+
+      const modalContent = document.getElementById('modalContent');
+      modalContent.innerHTML = `
+        <div class="mb-6">
+          <span class="bg-sky-50 text-brand-blue font-bold text-xs px-3 py-1 rounded-full">${job.location}</span>
+          <span class="text-slate-400 font-bold text-xs ml-2">Mã: ${job.id}</span>
+          <h2 class="text-2xl font-black text-brand-navy mt-2">${job.title}</h2>
+          <p class="text-emerald-600 font-black text-lg mt-1">${job.salary}</p>
+        </div>
+
+        <div class="space-y-4 mb-6">
+          <div>
+            <h4 class="font-bold text-brand-navy mb-1">Mô tả công việc:</h4>
+            <p class="text-slate-600 text-sm font-medium leading-relaxed">${job.description}</p>
+          </div>
+
+          ${job.requirements && job.requirements.length > 0 && job.requirements[0] !== "" ? `
+            <div>
+              <h4 class="font-bold text-brand-navy mb-1">Yêu cầu ứng viên:</h4>
+              <ul class="list-disc list-inside text-slate-600 text-sm font-medium space-y-1">
+                ${job.requirements.map(req => `<li>${req}</li>`).join('')}
+              </ul>
+            </div>
+          ` : ''}
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-100">
+          <a href="${job.linkJD}" target="_blank" class="flex-1 bg-brand-navy hover:bg-slate-800 text-white font-bold py-3 rounded-2xl text-center transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-file-pdf"></i> Xem File JD Gốc
+          </a>
+        </div>
+      `;
+
+      document.getElementById('jobModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('jobModal').classList.add('hidden');
+    }
+
+    window.onload = fetchJobs;
+  </script>
+</body>
+</html>
