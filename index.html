@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bà Mai Se Việc - Mai Mối Người Giỏi × Việc Ngon</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Nunito for friendly rounded typography matching the logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600;1,700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bm: {
+                            navy: '#0F1E4A',      /* Dark navy from text in logo */
+                            pink: '#EC4899',      /* Pink heart color */
+                            blue: '#0EA5E9',      /* Sky blue from briefcase */
+                            yellow: '#F59E0B',    /* Warm yellow sparkle */
+                            light: '#F8FAFC',     /* Light soft background */
+                            cream: '#FFFBEB',    /* Warm cream accent */
+                            pinklight: '#FDF2F8'  /* Light pink wash */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Nunito"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-header {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #F0F9FF 0%, #FDF2F8 50%, #FEF3C7 100%);
+        }
+        .rainbow-border {
+            border: 3px solid transparent;
+            background-image: linear-gradient(white, white), linear-gradient(135deg, #38BDF8, #F43F5E, #FBBF24);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #0F1E4A 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #EC4899;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans text-bm-navy bg-slate-50 flex flex-col min-h-screen antialiased">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-40 glass-header border-b border-pink-100 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo with Brand Avatar -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="relative w-12 h-12 rounded-full overflow-hidden p-0.5 bg-gradient-to-tr from-sky-400 via-pink-400 to-amber-300 shadow-md group-hover:scale-105 transition transform">
+                        <img src="Thiết kế chưa có tên.jpg" alt="Bà Mai Se Việc Logo" class="w-full h-full object-cover rounded-full bg-white" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0F1E4A/FFFFFF?text=B%C3%A0+Mai';">
+                    </div>
+                    <div>
+                        <span class="font-black text-2xl text-bm-navy tracking-tight block leading-none">bà mai <span class="text-bm-pink">se việc</span></span>
+                        <span class="text-[11px] font-bold text-bm-blue tracking-wide uppercase">mai mối người giỏi × việc ngon</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 font-bold text-gray-700">
+                    <a href="#home" class="hover:text-bm-pink transition py-1 border-b-2 border-transparent hover:border-bm-pink">Trang chủ</a>
+                    <a href="#jobs-section" class="hover:text-bm-pink transition py-1 border-b-2 border-transparent hover:border-bm-pink">Việc Làm Hot</a>
+                    <a href="#about" class="hover:text-bm-pink transition py-1 border-b-2 border-transparent hover:border-bm-pink">Về Bà Mai</a>
+                    <a href="#services" class="hover:text-bm-pink transition py-1 border-b-2 border-transparent hover:border-bm-pink">Dịch Vụ Khác</a>
+                    <a href="#contact" class="hover:text-bm-pink transition py-1 border-b-2 border-transparent hover:border-bm-pink">Liên Hệ</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="#jobs-section" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-bm-navy to-bm-blue text-white font-extrabold shadow-md hover:shadow-lg hover:opacity-95 transition transform active:scale-95 flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass text-bm-yellow"></i>Tìm Việc Ngon
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl text-gray-600 hover:text-bm-pink hover:bg-pink-50 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" class="mobile-link block px-3 py-2 rounded-xl font-bold text-gray-700 hover:text-bm-pink hover:bg-pink-50">Trang chủ</a>
+            <a href="#jobs-section" class="mobile-link block px-3 py-2 rounded-xl font-bold text-gray-700 hover:text-bm-pink hover:bg-pink-50">Việc Làm Hot</a>
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-xl font-bold text-gray-700 hover:text-bm-pink hover:bg-pink-50">Về Bà Mai</a>
+            <a href="#services" class="mobile-link block px-3 py-2 rounded-xl font-bold text-gray-700 hover:text-bm-pink hover:bg-pink-50">Dịch Vụ Khác</a>
+            <a href="#contact" class="mobile-link block px-3 py-2 rounded-xl font-bold text-gray-700 hover:text-bm-pink hover:bg-pink-50">Liên Hệ</a>
+            <div class="pt-2">
+                <a href="#jobs-section" class="mobile-link block w-full text-center px-5 py-3 rounded-2xl bg-bm-navy text-white font-extrabold shadow-md">
+                    Ứng Tuyển Ngay
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero / Banner Section -->
+    <section id="home" class="hero-bg py-16 lg:py-24 relative overflow-hidden border-b border-pink-100">
+        <!-- Background decorative elements -->
+        <div class="absolute top-10 left-10 w-64 h-64 bg-sky-200/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-pink-200/40 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Left Text Column -->
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-bm-pink font-extrabold text-xs sm:text-sm mb-6 shadow-sm border border-pink-200">
+                        <i class="fa-solid fa-sparkles text-bm-yellow"></i>
+                        Mai Mối Người Giỏi × Việc Ngon — 100% FREE Cho Ứng Viên
+                    </span>
+                    
+                    <h1 class="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-bm-navy leading-tight">
+                        bà mai <span class="text-bm-pink">se việc</span>
+                    </h1>
+                    <p class="text-xl sm:text-2xl font-extrabold text-bm-blue mt-2">
+                        mai mối người giỏi <span class="text-bm-pink">×</span> việc ngon
+                    </p>
+
+                    <p class="mt-4 text-base sm:text-lg text-gray-600 leading-relaxed font-semibold max-w-2xl">
+                        "Mát tay" chọn đúng công việc, gắn kết đúng môi trường. Hãy để Bà Mai nối dây hồng sự nghiệp, đưa bạn chạm tới cơ hội mơ ước hoàn toàn miễn phí!
+                    </p>
+
+                    <!-- Search Box Bar -->
+                    <div class="mt-8 bg-white p-3 sm:p-4 rounded-3xl shadow-xl border border-pink-100 rainbow-border max-w-2xl">
+                        <form id="hero-search-form" onsubmit="event.preventDefault(); handleSearch();" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                            <!-- Keyword -->
+                            <div class="sm:col-span-5 relative">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="text" id="search-keyword" placeholder="Công việc, kỹ năng..." 
+                                    class="w-full pl-10 pr-4 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bm-pink text-sm font-semibold">
+                            </div>
+                            <!-- Location -->
+                            <div class="sm:col-span-3 relative">
+                                <i class="fa-solid fa-location-dot absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <select id="search-location" class="w-full pl-9 pr-6 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bm-pink text-sm font-semibold bg-white appearance-none text-gray-700">
+                                    <option value="">Địa điểm</option>
+                                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                    <option value="Hà Nội">Hà Nội</option>
+                                    <option value="Đà Nẵng">Đà Nẵng</option>
+                                    <option value="Remote">Remote</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
+                            </div>
+                            <!-- Search Button -->
+                            <div class="sm:col-span-4">
+                                <button type="submit" class="w-full py-3 bg-bm-navy hover:bg-bm-blue text-white font-extrabold rounded-2xl transition shadow-md flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-heart text-bm-pink"></i> Tìm Việc
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Fast stats -->
+                    <div class="mt-8 grid grid-cols-3 gap-4 pt-6 border-t border-pink-200/60 max-w-xl">
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-black text-bm-navy">500+</span>
+                            <span class="text-xs sm:text-sm text-gray-600 font-bold">Việc ngon chờ sẵn</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-black text-bm-pink">98%</span>
+                            <span class="text-xs sm:text-sm text-gray-600 font-bold">Tỷ lệ Match êm đẹp</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-black text-bm-yellow">100%</span>
+                            <span class="text-xs sm:text-sm text-gray-600 font-bold">Miễn phí ứng viên</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Brand Logo Sticker Visual -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-64 sm:w-80 lg:w-96 aspect-square rounded-full p-2 bg-gradient-to-tr from-sky-300 via-pink-400 to-amber-300 shadow-2xl hover:scale-105 transition transform duration-500">
+                        <img src="Thiết kế chưa có tên.jpg" alt="Bà Mai Se Việc Logo Badge" class="w-full h-full object-cover rounded-full bg-white shadow-inner" onerror="this.onerror=null; this.src='https://placehold.co/500x500/0F1E4A/FFFFFF?text=b%C3%A0+mai+se+vi%E1%BB%87c';">
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-2 -left-2 bg-white px-4 py-2.5 rounded-2xl shadow-lg border border-pink-100 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-pink-100 text-bm-pink flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-black text-bm-navy">Bà Mai Mát Tay</p>
+                                <p class="text-[11px] font-bold text-gray-500">Người Giỏi × Việc Ngon</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Listings Section -->
+    <section id="jobs-section" class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                <div>
+                    <span class="text-bm-pink font-extrabold text-xs tracking-wider uppercase">Cơ Hội Việc Ngon</span>
+                    <h2 class="font-black text-3xl sm:text-4xl text-bm-navy mt-1">Danh Sách Việc Làm Hot</h2>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center gap-2">
+                    <span class="text-xs font-bold text-gray-500">Lọc theo:</span>
+                    <button onclick="filterType('ALL')" id="filter-btn-all" class="filter-tab-btn active px-4 py-2 text-xs font-bold rounded-xl bg-bm-navy text-white transition shadow-sm">Tất cả</button>
+                    <button onclick="filterType('Full-time')" id="filter-btn-fulltime" class="filter-tab-btn px-4 py-2 text-xs font-bold rounded-xl bg-white text-gray-600 hover:bg-pink-50 transition border border-gray-200">Toàn thời gian</button>
+                    <button onclick="filterType('Remote')" id="filter-btn-remote" class="filter-tab-btn px-4 py-2 text-xs font-bold rounded-xl bg-white text-gray-600 hover:bg-pink-50 transition border border-gray-200">Remote</button>
+                </div>
+            </div>
+
+            <!-- Job Grid Container -->
+            <div id="job-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Jobs Loaded via JavaScript -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-jobs" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-gray-300 my-6">
+                <i class="fa-solid fa-face-sad-tear text-5xl text-bm-pink mb-3"></i>
+                <h3 class="text-lg font-black text-bm-navy">Chưa tìm thấy công việc phù hợp</h3>
+                <p class="text-gray-500 text-xs font-bold mt-1">Bạn hãy thử tìm từ khóa khác hoặc xóa bớt bộ lọc nhé!</p>
+                <button onclick="resetFilters()" class="mt-4 px-5 py-2.5 bg-pink-100 text-bm-pink font-extrabold text-xs rounded-xl hover:bg-pink-200 transition">
+                    Xóa tất cả bộ lọc
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 lg:py-24 bg-white relative overflow-hidden border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Brand Sticker Card -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative max-w-sm w-full p-6 rounded-3xl bg-gradient-to-tr from-sky-50 via-pink-50 to-amber-50 border border-pink-100 shadow-xl text-center">
+                        <img src="Thiết kế chưa có tên.jpg" alt="Thương hiệu Bà Mai Se Việc" class="w-48 h-48 rounded-full mx-auto object-cover shadow-md mb-4 border-4 border-white" onerror="this.onerror=null; this.src='https://placehold.co/300x300/0F1E4A/FFFFFF?text=B%C3%A0+Mai';">
+                        <h3 class="font-black text-2xl text-bm-navy">bà mai se việc</h3>
+                        <p class="text-xs font-extrabold text-bm-pink tracking-wide uppercase mt-1">mai mối người giỏi × việc ngon</p>
+                        <p class="text-xs text-gray-500 font-semibold mt-3">Sứ mệnh mang lại sự gắn kết chân thành giữa ứng viên tài năng và doanh nghiệp tử tế.</p>
+                    </div>
+                </div>
+
+                <!-- Right Content -->
+                <div class="lg:col-span-7">
+                    <span class="text-bm-pink font-extrabold text-xs tracking-wider uppercase">Thương Hiệu Bà Mai</span>
+                    <h2 class="font-black text-3xl sm:text-4xl text-bm-navy mt-1 mb-6 leading-tight">
+                        Chuyên Gia "Se Duyên" Sự Nghiệp & Kết Nối Nhân Tài
+                    </h2>
+                    <p class="text-gray-600 font-semibold leading-relaxed mb-4 text-sm">
+                        Với tinh thần thân thiện, chân thành như một "Bà Mai" mát tay truyền thống, <strong>bà mai se việc</strong> xóa bỏ mọi cảm giác xa cách, khô khan trong tuyển dụng. Chúng tôi lắng nghe mong muốn, thấu hiểu năng lực để "mai mối" bạn đến môi trường làm việc phù hợp nhất.
+                    </p>
+                    <p class="text-gray-600 font-semibold leading-relaxed mb-8 text-sm">
+                        Đặc biệt, toàn bộ dịch vụ tư vấn, giới thiệu công việc dành cho Ứng Viên đều <strong>MIỄN PHÍ 100%</strong>.
+                    </p>
+
+                    <!-- Core Value Pillars -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-2xl bg-pink-50/70 border border-pink-100">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fa-solid fa-heart text-bm-pink text-xl"></i>
+                                <h4 class="font-black text-bm-navy">Tận Tâm & Chân Thành</h4>
+                            </div>
+                            <p class="text-xs font-semibold text-gray-600">Đồng hành sửa CV, tư vấn phỏng vấn nhiệt tình tới khi nhận việc.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-sky-50/70 border border-sky-100">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fa-solid fa-briefcase text-bm-blue text-xl"></i>
+                                <h4 class="font-black text-bm-navy">Chuẩn Việc Ngon</h4>
+                            </div>
+                            <p class="text-xs font-semibold text-gray-600">Đảm bảo thông tin minh bạch, đãi ngộ hấp dẫn và môi trường tốt.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-100">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fa-solid fa-gift text-bm-yellow text-xl"></i>
+                                <h4 class="font-black text-bm-navy">100% Free Cho Ứng Viên</h4>
+                            </div>
+                            <p class="text-xs font-semibold text-gray-600">Cam kết không thu bất kỳ chi phí nào từ người tìm việc.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-pink-50/70 border border-pink-100">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fa-solid fa-bolt text-bm-pink text-xl"></i>
+                                <h4 class="font-black text-bm-navy">Phản Hồi Tốc Độ</h4>
+                            </div>
+                            <p class="text-xs font-semibold text-gray-600">Cập nhật tiến độ ứng tuyển nhanh chóng, không để bạn chờ đợi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-slate-50 border-t border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-bm-pink font-extrabold text-xs tracking-wider uppercase">Đồng Hành Toàn Diện</span>
+                <h2 class="font-black text-3xl sm:text-4xl text-bm-navy mt-1">Các Dịch Vụ Của Bà Mai</h2>
+                <p class="text-gray-600 font-semibold text-xs sm:text-sm mt-2">Bà Mai giúp bạn chuẩn bị 100% hành trang tỏa sáng trước nhà tuyển dụng!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-pink-100 text-bm-pink flex items-center justify-center text-2xl mb-6 group-hover:bg-bm-pink group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                        <h3 class="font-black text-xl text-bm-navy mb-3">Tư Vấn & Fix CV Chuẩn Mát Tay</h3>
+                        <p class="text-gray-600 text-xs font-semibold leading-relaxed mb-6">
+                            Đánh giá chi tiết CV hiện tại, tái cấu trúc làm nổi bật thế mạnh giúp bạn ghi điểm tuyệt đối trong 6 giây đầu tiên với HR.
+                        </p>
+                    </div>
+                    <div>
+                        <button onclick="openConsultModal('Tư Vấn & Fix CV Chuẩn Mát Tay')" class="w-full py-2.5 px-4 rounded-2xl border-2 border-bm-pink text-bm-pink font-extrabold hover:bg-bm-pink hover:text-white transition text-xs">
+                            Đăng Ký Đánh Giá CV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-amber-100 text-bm-yellow flex items-center justify-center text-2xl mb-6 group-hover:bg-bm-yellow group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h3 class="font-black text-xl text-bm-navy mb-3">Phỏng Vấn Thử (Mock Interview)</h3>
+                        <p class="text-gray-600 text-xs font-semibold leading-relaxed mb-6">
+                            Luyện tập phỏng vấn 1-1 trực tiếp cùng Bà Mai, nhận góp ý thực tế và học bí quyết đàm phán mức lương ngon nhất.
+                        </p>
+                    </div>
+                    <div>
+                        <button onclick="openConsultModal('Phỏng Vấn Thử 1-1 Với Bà Mai')" class="w-full py-2.5 px-4 rounded-2xl border-2 border-bm-yellow text-bm-yellow font-extrabold hover:bg-bm-yellow hover:text-white transition text-xs">
+                            Đặt Lịch Phỏng Vấn Thử
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-sky-100 text-bm-blue flex items-center justify-center text-2xl mb-6 group-hover:bg-bm-blue group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-handshake"></i>
+                        </div>
+                        <h3 class="font-black text-xl text-bm-navy mb-3">Headhunting Cho Doanh Nghiệp</h3>
+                        <p class="text-gray-600 text-xs font-semibold leading-relaxed mb-6">
+                            Dịch vụ săn nhân tài chất lượng cao cho Doanh nghiệp. Tìm đúng nhân sự giỏi theo chuẩn văn hóa và năng lực yêu cầu.
+                        </p>
+                    </div>
+                    <div>
+                        <button onclick="openConsultModal('Dịch Vụ Tuyển Dụng Cho Doanh Nghiệp')" class="w-full py-2.5 px-4 rounded-2xl border-2 border-bm-blue text-bm-blue font-extrabold hover:bg-bm-blue hover:text-white transition text-xs">
+                            Dành Cho Doanh Nghiệp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer id="contact" class="bg-bm-navy text-gray-300 pt-16 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-slate-800">
+                <!-- Brand Info -->
+                <div class="lg:col-span-4">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="Thiết kế chưa có tên.jpg" alt="Logo Footer" class="w-10 h-10 rounded-full object-cover border border-pink-300" onerror="this.onerror=null; this.src='https://placehold.co/80x80/0F1E4A/FFFFFF?text=BM';">
+                        <div>
+                            <span class="font-black text-xl text-white block leading-none">bà mai se việc</span>
+                            <span class="text-[10px] font-bold text-bm-pink tracking-wider">mai mối người giỏi × việc ngon</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 font-semibold leading-relaxed mb-6">
+                        Chuyên trang cầu nối nhân tài chất lượng cao và cơ hội nghề nghiệp lý tưởng. Mang lại giá trị bền vững cho ứng viên và doanh nghiệp.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-gray-300 hover:bg-bm-pink hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-gray-300 hover:bg-bm-pink hover:text-white transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-gray-300 hover:bg-bm-pink hover:text-white transition"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="lg:col-span-2">
+                    <h4 class="text-white font-black mb-4 text-sm">Liên Kết</h4>
+                    <ul class="space-y-2.5 text-xs font-semibold">
+                        <li><a href="#home" class="hover:text-bm-pink transition">Trang chủ</a></li>
+                        <li><a href="#jobs-section" class="hover:text-bm-pink transition">Danh sách Job</a></li>
+                        <li><a href="#about" class="hover:text-bm-pink transition">Về Bà Mai</a></li>
+                        <li><a href="#services" class="hover:text-bm-pink transition">Dịch vụ khác</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="lg:col-span-3">
+                    <h4 class="text-white font-black mb-4 text-sm">Thông Tin Liên Hệ</h4>
+                    <ul class="space-y-3 text-xs font-semibold text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-bm-pink mt-1"></i>
+                            <span>Tầng 8, Tòa nhà Innovation, Q.1, TP. Hồ Chí Minh</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-bm-pink"></i>
+                            <span>Hotline: 0988 123 456 (Bà Mai)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-bm-pink"></i>
+                            <span>Email: tuyendung@bamai.vn</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div class="lg:col-span-3">
+                    <h4 class="text-white font-black mb-4 text-sm">Nhận Việc Ngon Hàng Tuần</h4>
+                    <p class="text-[11px] font-semibold text-gray-400 mb-3">Đăng ký email để Bà Mai gửi thông báo công việc mới nhất cho bạn.</p>
+                    <form onsubmit="event.preventDefault(); handleSubscribe();" class="space-y-2">
+                        <input type="email" id="subscribe-email" placeholder="Nhập email của bạn..." required
+                               class="w-full px-4 py-2.5 rounded-2xl bg-slate-800 border border-slate-700 text-white text-xs font-semibold focus:outline-none focus:border-bm-pink">
+                        <button type="submit" class="w-full py-2.5 bg-gradient-to-r from-bm-pink to-bm-blue text-white text-xs font-black rounded-2xl hover:opacity-90 transition">
+                            Đăng Ký Ngay
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-semibold text-gray-500 gap-4">
+                <p>&copy; 2026 bà mai se việc. Tất cả quyền được bảo lưu.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-gray-400">Điều khoản</a>
+                    <a href="#" class="hover:text-gray-400">Bảo mật</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: Job Details Modal -->
+    <div id="job-detail-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto">
+            <!-- Close button -->
+            <button onclick="closeModal('job-detail-modal')" class="absolute top-5 right-5 text-gray-400 hover:text-gray-700 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Detail Content (Populated dynamically) -->
+            <div id="job-detail-content"></div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Application Form Modal -->
+    <div id="apply-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative my-8">
+            <!-- Close button -->
+            <button onclick="closeModal('apply-modal')" class="absolute top-5 right-5 text-gray-400 hover:text-gray-700 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="mb-6">
+                <span class="text-xs font-black text-bm-pink uppercase tracking-wider">Đăng ký ứng tuyển</span>
+                <h3 class="text-2xl font-black text-bm-navy mt-1" id="apply-job-title">Ứng tuyển vị trí</h3>
+                <p class="text-xs font-bold text-gray-500 mt-1">Điền thông tin bên dưới, Bà Mai sẽ liên hệ với bạn trong 24h nhé!</p>
+            </div>
+
+            <form id="apply-form" onsubmit="handleApplySubmit(event)" class="space-y-4">
+                <input type="hidden" id="apply-job-id">
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Họ và Tên *</label>
+                    <input type="text" id="applicant-name" required placeholder="Ví dụ: Nguyễn Văn A"
+                           class="w-full px-4 py-2.5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-bm-pink text-xs font-bold">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Số Điện Thoại *</label>
+                        <input type="tel" id="applicant-phone" required placeholder="0901234567"
+                               class="w-full px-4 py-2.5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-bm-pink text-xs font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Email Liên Hệ *</label>
+                        <input type="email" id="applicant-email" required placeholder="nguyenvana@gmail.com"
+                               class="w-full px-4 py-2.5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-bm-pink text-xs font-bold">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Link CV (Google Drive, LinkedIn, Notion, PDF) *</label>
+                    <input type="url" id="applicant-cv" required placeholder="https://drive.google.com/file/d/your-cv..."
+                           class="w-full px-4 py-2.5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-bm-pink text-xs font-bold">
+                    <span class="text-[11px] text-gray-400 font-semibold mt-1 block">*Lưu ý mở quyền xem công khai đối với link Google Drive bạn nhé!</span>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Lời Nhắn Cho Bà Mai</label>
+                    <textarea id="applicant-message" rows="3" placeholder="Giới thiệu nhanh điểm mạnh hoặc mức lương mong muốn..."
+                              class="w-full px-4 py-2.5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-bm-pink text-xs font-bold"></textarea>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-3 bg-bm-navy hover:bg-bm-blue text-white font-black rounded-2xl shadow-md transition">
+                        Gửi Hồ Sơ Cho Bà Mai
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Service Advisory Consultation Modal -->
+    <div id="consult-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeModal('consult-modal')" class="absolute top-5 right-5 text-gray-400 hover:text-gray-700 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="mb-4">
+                <span class="text-xs font-black text-bm-pink uppercase tracking-wider">Đăng ký dịch vụ</span>
+                <h3 class="text-xl font-black text-bm-navy mt-1" id="consult-service-title">Đăng ký tư vấn</h3>
+            </div>
+            <form onsubmit="handleConsultSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Họ tên *</label>
+                    <input type="text" id="consult-name" required placeholder="Họ và tên..." class="w-full px-3.5 py-2.5 rounded-2xl border border-gray-300 text-xs font-bold focus:ring-2 focus:ring-bm-pink focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Số điện thoại / Zalo *</label>
+                    <input type="tel" id="consult-phone" required placeholder="09xxxx..." class="w-full px-3.5 py-2.5 rounded-2xl border border-gray-300 text-xs font-bold focus:ring-2 focus:ring-bm-pink focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Nhu cầu cụ thể</label>
+                    <textarea id="consult-note" rows="2" placeholder="Ghi chú thêm mong muốn..." class="w-full px-3.5 py-2.5 rounded-2xl border border-gray-300 text-xs font-bold focus:ring-2 focus:ring-bm-pink focus:outline-none"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 bg-bm-pink text-white font-black rounded-2xl shadow hover:bg-pink-600 transition text-xs">
+                    Xác Nhận Đăng Ký
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-bm-navy text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 max-w-sm transition-all duration-300">
+        <div id="toast-icon" class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <p id="toast-title" class="font-black text-xs">Thông báo</p>
+            <p id="toast-message" class="text-[11px] font-semibold text-gray-300">Thao tác thành công!</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Mock Data: Jobs List
+        const jobsData = [
+            {
+                id: 'job-1',
+                title: 'Chuyên Viên Marketing Specialist',
+                company: 'Tập đoàn Công nghệ NextGen',
+                salary: '15 - 22 Triệu',
+                location: 'Hồ Chí Minh',
+                type: 'Full-time',
+                category: 'Marketing / PR',
+                tags: ['Content', 'Facebook Ads', 'SEO'],
+                hot: true,
+                description: 'Lập kế hoạch và triển khai các chiến dịch Marketing trên kênh Social. Viết nội dung sáng tạo, quản lý ngân sách quảng cáo và tối ưu hóa chuyển đổi leads.',
+                requirements: 'Có từ 2 năm kinh nghiệm Marketing. Thành thạo phân tích số liệu Ads, tư duy sáng tạo cao và nhạy bén với xu hướng thị trường.',
+                benefits: 'Thưởng KPI hấp dẫn, du lịch hàng năm, môi trường trẻ trung năng động, review lương 2 lần/năm.'
+            },
+            {
+                id: 'job-2',
+                title: 'Lập Trình Viên Fullstack (Node.js & React)',
+                company: 'Fintech Solutions Co.',
+                salary: '25 - 40 Triệu',
+                location: 'Hà Nội',
+                type: 'Remote',
+                category: 'IT / Phần Mềm',
+                tags: ['ReactJS', 'Node.js', 'TypeScript'],
+                hot: true,
+                description: 'Xây dựng và phát triển các hệ thống thanh toán trực tuyến, tối ưu trải nghiệm người dùng trên Web App và kiến trúc backend linh hoạt.',
+                requirements: 'Tối thiểu 3 năm kinh nghiệm làm việc với ReactJS, Node.js. Nắm vững MongoDB/PostgreSQL và thiết kế RESTful APIs.',
+                benefits: 'Làm việc Remote 100%, thưởng dự án tháng 13-14, cấp Macbook Pro, gói bảo hiểm sức khỏe cao cấp.'
+            },
+            {
+                id: 'job-3',
+                title: 'Kế Toán Trưởng (Chief Accountant)',
+                company: 'Chuỗi Bán Lẻ An Phát',
+                salary: '28 - 35 Triệu',
+                location: 'Hồ Chí Minh',
+                type: 'Full-time',
+                category: 'Tài chính / Kế toán',
+                tags: ['Thuế', 'Báo Cáo Tài Chính', 'MISA'],
+                hot: false,
+                description: 'Quản lý toàn bộ hoạt động phòng kế toán, lập báo cáo tài chính định kỳ, làm việc trực tiếp với cơ quan thuế và kiểm toán độc lập.',
+                requirements: 'Tốt nghiệp Đại học chuyên ngành Kế toán/Tài chính, có chứng chỉ Kế toán trưởng. Trên 4 năm vị trí tương đương.',
+                benefits: 'Đóng BHXH full lương, thưởng lễ tết theo doanh thu công ty, chế độ chăm sóc sức khỏe gia đình.'
+            },
+            {
+                id: 'job-4',
+                title: 'Trưởng Phòng Kinh Doanh (Sales Manager)',
+                company: 'Bất Động Sản Thịnh Vượng',
+                salary: '30 - 60 Triệu',
+                location: 'Đà Nẵng',
+                type: 'Full-time',
+                category: 'Kinh doanh / Sales',
+                tags: ['B2B Sales', 'Quản Lý Team', 'Đàm Thoại'],
+                hot: true,
+                description: 'Dẫn dắt và đào tạo đội ngũ Sales 15 nhân sự. Lập kế hoạch doanh số hàng quý và mở rộng tệp khách hàng doanh nghiệp tiềm năng.',
+                requirements: 'Có kỹ năng lãnh đạo xuất sắc, kinh nghiệm Sales B2B hoặc Bất động sản từ 3 năm trở lên.',
+                benefits: 'Tỷ lệ chia hoa hồng top đầu thị trường, xe đưa đón công tác, cơ hội thăng tiến Giám đốc khối.'
+            },
+            {
+                id: 'job-5',
+                title: 'Senior HRBP / Chuyên Viên Nhân Sự',
+                company: 'Tập đoàn Bán lẻ Quốc tế',
+                salary: '18 - 25 Triệu',
+                location: 'Hồ Chí Minh',
+                type: 'Full-time',
+                category: 'Nhân sự',
+                tags: ['Tuyển Dụng', 'C&B', 'Văn Hóa Doanh Nghiệp'],
+                hot: false,
+                description: 'Đồng hành cùng ban giám đốc triển khai chiến lược nhân sự, thu hút nhân tài và gắn kết văn hóa nội bộ công ty.',
+                requirements: 'Có từ 3 năm kinh nghiệm HR Generalist hoặc HRBP trong các quy mô cty từ 200+ nhân sự.',
+                benefits: 'Môi trường làm việc chuẩn quốc tế, đào tạo chuyên sâu, ưu đãi mua sắm nội bộ.'
+            },
+            {
+                id: 'job-6',
+                title: 'UI/UX Designer (Product Designer)',
+                company: 'Creative Studio Vietnam',
+                salary: '20 - 30 Triệu',
+                location: 'Remote',
+                type: 'Remote',
+                category: 'IT / Phần Mềm',
+                tags: ['Figma', 'UI/UX', 'Design System'],
+                hot: false,
+                description: 'Thiết kế giao diện ứng dụng Mobile & Web hiện đại, xây dựng Wireframe, User flow và bàn giao asset chất lượng cho Dev.',
+                requirements: 'Có Portfolio dự án phong phú, thành thạo Figma, hiểu rõ nguyên lý Human Interface Guidelines.',
+                benefits: 'Thời gian làm việc linh hoạt, thưởng theo sản phẩm ra mắt, hỗ trợ chi phí học tập kỹ năng.'
+            }
+        ];
+
+        // Global State Variables
+        let activeJobs = [...jobsData];
+        let currentTypeFilter = 'ALL';
+
+        // DOM Ready Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderJobs(activeJobs);
+            setupMobileMenu();
+            checkUrlForJobDetail();
+        });
+
+        // Render Jobs Grid
+        function renderJobs(jobs) {
+            const grid = document.getElementById('job-grid');
+            const emptyState = document.getElementById('empty-jobs');
+            grid.innerHTML = '';
+
+            if (jobs.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            jobs.forEach(job => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col justify-between group relative";
+                
+                card.innerHTML = `
+                    <div>
+                        <!-- Header / Badge -->
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <span class="inline-block px-3 py-1 rounded-full text-[11px] font-black ${job.type === 'Remote' ? 'bg-purple-100 text-purple-700' : 'bg-pink-100 text-bm-pink'}">
+                                ${job.type}
+                            </span>
+                            ${job.hot ? '<span class="inline-flex items-center gap-1 text-[11px] font-black text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full"><i class="fa-solid fa-fire text-bm-yellow"></i> Hot</span>' : ''}
+                        </div>
+
+                        <!-- Job Title -->
+                        <h3 class="font-black text-lg text-bm-navy group-hover:text-bm-pink transition line-clamp-2">
+                            ${job.title}
+                        </h3>
+                        <p class="text-xs font-bold text-gray-500 mt-1 mb-4">
+                            <i class="fa-regular fa-building mr-1 text-bm-blue"></i>${job.company}
+                        </p>
+
+                        <!-- Key Info -->
+                        <div class="space-y-2 mb-5 text-xs font-bold text-gray-600">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-sack-dollar text-bm-yellow w-4"></i>
+                                <span class="font-black text-bm-pink text-sm">${job.salary}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-gray-400 w-4"></i>
+                                <span>${job.location}</span>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            ${job.tags.map(t => `<span class="px-2.5 py-1 rounded-lg bg-slate-100 text-gray-600 text-[11px] font-bold">${t}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <button onclick="openJobDetail('${job.id}')" class="flex-1 py-2.5 px-3 rounded-2xl border border-gray-200 hover:border-bm-pink text-gray-700 hover:text-bm-pink font-extrabold text-xs transition text-center">
+                            Xem chi tiết
+                        </button>
+                        <button onclick="openApplyModal('${job.id}')" class="flex-1 py-2.5 px-3 rounded-2xl bg-bm-navy hover:bg-bm-blue text-white font-extrabold text-xs shadow-md transition text-center">
+                            Ứng tuyển
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Jobs by Type
+        function filterType(type) {
+            currentTypeFilter = type;
+            
+            // Update button styles
+            document.querySelectorAll('.filter-tab-btn').forEach(btn => {
+                btn.className = "filter-tab-btn px-4 py-2 text-xs font-bold rounded-xl bg-white text-gray-600 hover:bg-pink-50 transition border border-gray-200";
+            });
+
+            if (type === 'ALL') {
+                document.getElementById('filter-btn-all').className = "filter-tab-btn active px-4 py-2 text-xs font-bold rounded-xl bg-bm-navy text-white transition shadow-sm";
+            } else if (type === 'Full-time') {
+                document.getElementById('filter-btn-fulltime').className = "filter-tab-btn active px-4 py-2 text-xs font-bold rounded-xl bg-bm-navy text-white transition shadow-sm";
+            } else if (type === 'Remote') {
+                document.getElementById('filter-btn-remote').className = "filter-tab-btn active px-4 py-2 text-xs font-bold rounded-xl bg-bm-navy text-white transition shadow-sm";
+            }
+
+            executeFilter();
+        }
+
+        // Handle Search Bar Input
+        function handleSearch() {
+            executeFilter();
+            document.getElementById('jobs-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Filter Logic Execution
+        function executeFilter() {
+            const keyword = document.getElementById('search-keyword').value.toLowerCase().trim();
+            const location = document.getElementById('search-location').value;
+
+            activeJobs = jobsData.filter(job => {
+                const matchKeyword = !keyword || 
+                    job.title.toLowerCase().includes(keyword) || 
+                    job.company.toLowerCase().includes(keyword) ||
+                    job.tags.some(t => t.toLowerCase().includes(keyword)) ||
+                    job.description.toLowerCase().includes(keyword);
+
+                const matchLocation = !location || job.location === location;
+                const matchType = currentTypeFilter === 'ALL' || job.type === currentTypeFilter;
+
+                return matchKeyword && matchLocation && matchType;
+            });
+
+            renderJobs(activeJobs);
+        }
+
+        function resetFilters() {
+            document.getElementById('search-keyword').value = '';
+            document.getElementById('search-location').value = '';
+            filterType('ALL');
+        }
+
+        // Open Job Details Modal
+        function openJobDetail(jobId) {
+            const job = jobsData.find(j => j.id === jobId);
+            if (!job) return;
+
+            const content = document.getElementById('job-detail-content');
+            const shareUrl = window.location.origin + window.location.pathname + '?job=' + job.id;
+
+            content.innerHTML = `
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-black bg-pink-100 text-bm-pink">${job.category}</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-black bg-slate-100 text-gray-600">${job.type}</span>
+                    </div>
+
+                    <h2 class="text-2xl sm:text-3xl font-black text-bm-navy leading-tight">${job.title}</h2>
+                    <p class="text-xs font-bold text-bm-blue mt-1 mb-4"><i class="fa-regular fa-building mr-1"></i>${job.company}</p>
+
+                    <!-- Key stats box -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 mb-6 text-xs font-bold">
+                        <div>
+                            <span class="text-gray-400 block text-[11px]">Mức lương:</span>
+                            <span class="font-black text-bm-pink text-sm sm:text-base">${job.salary}</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 block text-[11px]">Địa điểm:</span>
+                            <span class="font-bold text-gray-800 text-sm">${job.location}</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 block text-[11px]">Hình thức:</span>
+                            <span class="font-bold text-gray-800 text-sm">${job.type}</span>
+                        </div>
+                    </div>
+
+                    <!-- Job Detail Sections -->
+                    <div class="space-y-5 text-xs font-semibold text-gray-700">
+                        <div>
+                            <h4 class="font-black text-bm-navy text-sm mb-1.5 flex items-center gap-2">
+                                <i class="fa-solid fa-align-left text-bm-pink"></i> Mô tả công việc
+                            </h4>
+                            <p class="leading-relaxed text-gray-600">${job.description}</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-black text-bm-navy text-sm mb-1.5 flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-bm-pink"></i> Yêu cầu ứng viên
+                            </h4>
+                            <p class="leading-relaxed text-gray-600">${job.requirements}</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-black text-bm-navy text-sm mb-1.5 flex items-center gap-2">
+                                <i class="fa-solid fa-gift text-bm-pink"></i> Quyền lợi được hưởng
+                            </h4>
+                            <p class="leading-relaxed text-gray-600">${job.benefits}</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-black text-gray-400 uppercase tracking-wider text-[10px] mb-2">Kỹ năng liên quan</h4>
+                            <div class="flex flex-wrap gap-2">
+                                ${job.tags.map(t => `<span class="px-3 py-1 rounded-lg bg-slate-100 text-gray-700 font-bold text-xs">${t}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shareable Link Box -->
+                    <div class="mt-6 p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-2">
+                        <div class="truncate text-[11px] text-gray-500 font-mono pl-1">
+                            <i class="fa-solid fa-link mr-1"></i>${shareUrl}
+                        </div>
+                        <button onclick="copyJobLink('${shareUrl}')" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-gray-800 text-xs font-bold rounded-xl transition whitespace-nowrap">
+                            Sao chép Link
+                        </button>
+                    </div>
+
+                    <!-- CTA Actions -->
+                    <div class="mt-6">
+                        <button onclick="closeModal('job-detail-modal'); openApplyModal('${job.id}');" class="w-full py-3 bg-bm-navy text-white font-black rounded-2xl shadow-md hover:bg-bm-blue transition text-center text-xs">
+                            Ứng Tuyển Vị Trí Này
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('job-detail-modal').classList.remove('hidden');
+        }
+
+        // Copy direct link to clipboard
+        function copyJobLink(url) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('Đã sao chép link công việc!', 'Bạn có thể gửi đường dẫn này cho bạn bè.');
+                }).catch(() => fallbackCopy(url));
+            } else {
+                fallbackCopy(url);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showToast('Đã sao chép link công việc!', 'Bạn có thể gửi đường dẫn này cho bạn bè.');
+        }
+
+        // Open Apply Modal
+        function openApplyModal(jobId) {
+            const job = jobsData.find(j => j.id === jobId);
+            if (!job) return;
+
+            document.getElementById('apply-job-id').value = job.id;
+            document.getElementById('apply-job-title').innerText = `Ứng tuyển: ${job.title}`;
+            document.getElementById('apply-modal').classList.remove('hidden');
+        }
+
+        // Open Service Consultation Modal
+        function openConsultModal(serviceName) {
+            document.getElementById('consult-service-title').innerText = serviceName;
+            document.getElementById('consult-modal').classList.remove('hidden');
+        }
+
+        // Close Modal Helper
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Check URL query for direct job link (?job=job-1)
+        function checkUrlForJobDetail() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('job');
+            if (jobId) {
+                openJobDetail(jobId);
+            }
+        }
+
+        // Form Submission - Apply
+        function handleApplySubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('applicant-name').value;
+            const phone = document.getElementById('applicant-phone').value;
+
+            closeModal('apply-modal');
+            document.getElementById('apply-form').reset();
+
+            showToast(
+                'Ứng tuyển thành công! 🎉', 
+                `Cảm ơn ${name}! Bà Mai sẽ liên hệ qua SĐT ${phone} trong thời gian sớm nhất.`
+            );
+        }
+
+        // Form Submission - Service Advisory
+        function handleConsultSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('consult-name').value;
+            
+            closeModal('consult-modal');
+            showToast('Đã đăng ký tư vấn!', `Cảm ơn ${name}, cố vấn Bà Mai sẽ phản hồi trong 24h.`);
+        }
+
+        // Form Submission - Newsletter
+        function handleSubscribe() {
+            const email = document.getElementById('subscribe-email').value;
+            document.getElementById('subscribe-email').value = '';
+            showToast('Đăng ký thành công!', `Email ${email} sẽ nhận thông báo job mới nhất.`);
+        }
+
+        // Show Custom Toast Notification
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-message').innerText = message;
+
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Mobile Menu Toggle
+        function setupMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const links = document.querySelectorAll('.mobile-link');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+
+            links.forEach(l => {
+                l.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+```
+
+---
+
+### Mẹo quan trọng để hiển thị Logo của bạn lên website:
+Trong file `index.html`, bạn hãy đặt file ảnh Logo của bạn chung một thư mục với `index.html` và đặt tên file ảnh đúng là **`Thiết kế chưa có tên.jpg`** (hoặc đổi tên file ảnh thành `logo.png` và sửa tên tương ứng trong file code ở các thẻ `<img src="logo.png">`).
+
+Bây giờ bạn chỉ cần copy đoạn code trên đè vào file `index.html` cũ trên GitHub là website sẽ tự động cập nhật diện mạo mới rất xinh xắn và chuyên nghiệp!
